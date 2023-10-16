@@ -5,7 +5,7 @@
     # Controls when the workflow will run
     on:
       schedule:
-        - cron: '50 13 * * *'    
+        - cron: '10 14 * * *'    
       # Allows you to run this workflow manually from the Actions tab
       workflow_dispatch:
     
