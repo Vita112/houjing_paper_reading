@@ -30,5 +30,5 @@
             with:
               token: ${{ secrets.ACCESS_TOKEN }}
               repository-name: Vita112/notablog-starter    # 修改这里
-              BRANCH: doc  # 如果你的仓库默认分支是 master 记得修改这里                    
-              FOLDER: public
+              branch: doc  # 如果你的仓库默认分支是 master 记得修改这里                    
+              folder: public
