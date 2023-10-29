@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📖&lt;/text&gt;&lt;/svg&gt;">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>A Survey of Vision-Language Pre-Trained Models&nbsp;|&nbsp;Paper Reading</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="A Survey of Vision-Language Pre-Trained Models">
+  
+    <meta name="description" content="review the progress in Vision-Language Pre-training, including modality embedding, modeling the interaction between two modality, various pre-training tasks, presentative downstream tasks">
+    <meta property="og:description" content="review the progress in Vision-Language Pre-training, including modality embedding, modeling the interaction between two modality, various pre-training tasks, presentative downstream tasks">
+  
+  
+    <meta property="og:image" content="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📝&lt;/text&gt;&lt;/svg&gt;">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📖&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+      
+      <span>Home</span>
+    </div>
+  </a>
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🏖️&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>About</span>
+        </div>
+      </a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</nav>
+  <header class="Header">
+    
+    <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📝&lt;/text&gt;&lt;/svg&gt;"></span>
+      </div>
+    
+    <h1 class="Header__Title">A Survey of Vision-Language Pre-Trained Models</h1>
+    
+  </header>
+  <article id="https://www.notion.so/274b0f259ad841b3a549e96d3e862165" class="PageRoot"><h1 id="https://www.notion.so/0a05259985074c98a693cd06c4bcb4bb" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/0a05259985074c98a693cd06c4bcb4bb"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">1. modality embedding</span></span></h1><div id="https://www.notion.so/8b7c462008314346bb92ea0209b3f110" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">encode images and texts into latent representations preserving their semantics</span></span></p></div><div id="https://www.notion.so/91de3696ef80498aae92b7be619da0ec" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/b2d063fe9206496d8a2469d2187595ec" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/ae5b3facaa75480584e4a1fdcc47666c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/263afa0822b34307b22e5d5c065f9cc4" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/be55f8411d11417a988782fb9f5e13a6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">design a performant architecture to model the interaction between two modalities</span></span></p></div><div id="https://www.notion.so/18dba69eff4c4885a238b78c305bc1de" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><span class="SemanticString__Fragment SemanticString__Fragment--Math" data-latex="\bf{Text\ representation.}"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">T</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">x</mi><mi mathvariant="bold">t</mi><mtext> </mtext><mi mathvariant="bold">r</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">p</mi><mi mathvariant="bold">r</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">s</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">n</mi><mi mathvariant="bold">t</mi><mi mathvariant="bold">a</mi><mi mathvariant="bold">t</mi><mi mathvariant="bold">i</mi><mi mathvariant="bold">o</mi><mi mathvariant="bold">n</mi><mi mathvariant="bold">.</mi></mrow><annotation encoding="application/x-tex">\bf{Text\ representation.}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">T</span><span class="mord mathbf">e</span><span class="mord mathbf">x</span><span class="mord mathbf">t</span><span class="mspace"> </span><span class="mord mathbf">r</span><span class="mord mathbf">e</span><span class="mord mathbf">p</span><span class="mord mathbf">r</span><span class="mord mathbf">e</span><span class="mord mathbf">s</span><span class="mord mathbf">e</span><span class="mord mathbf">n</span><span class="mord mathbf">t</span><span class="mord mathbf">a</span><span class="mord mathbf">t</span><span class="mord mathbf">i</span><span class="mord mathbf">o</span><span class="mord mathbf">n</span><span class="mord mathbf">.</span></span></span></span></span></span></span></span><span class="SemanticString"> follow BERT to preprocess the raw text.</span></span></p></div><div id="https://www.notion.so/5f050accf6eb4ec48cd9531ec393bb53" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><span class="SemanticString__Fragment SemanticString__Fragment--Math" data-latex="\bf{Image\ representation.}"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">I</mi><mi mathvariant="bold">m</mi><mi mathvariant="bold">a</mi><mi mathvariant="bold">g</mi><mi mathvariant="bold">e</mi><mtext> </mtext><mi mathvariant="bold">r</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">p</mi><mi mathvariant="bold">r</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">s</mi><mi mathvariant="bold">e</mi><mi mathvariant="bold">n</mi><mi mathvariant="bold">t</mi><mi mathvariant="bold">a</mi><mi mathvariant="bold">t</mi><mi mathvariant="bold">i</mi><mi mathvariant="bold">o</mi><mi mathvariant="bold">n</mi><mi mathvariant="bold">.</mi></mrow><annotation encoding="application/x-tex">\bf{Image\ representation.}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">I</span><span class="mord mathbf">m</span><span class="mord mathbf">a</span><span class="mord mathbf" style="margin-right:0.01597em;">g</span><span class="mord mathbf">e</span><span class="mspace"> </span><span class="mord mathbf">r</span><span class="mord mathbf">e</span><span class="mord mathbf">p</span><span class="mord mathbf">r</span><span class="mord mathbf">e</span><span class="mord mathbf">s</span><span class="mord mathbf">e</span><span class="mord mathbf">n</span><span class="mord mathbf">t</span><span class="mord mathbf">a</span><span class="mord mathbf">t</span><span class="mord mathbf">i</span><span class="mord mathbf">o</span><span class="mord mathbf">n</span><span class="mord mathbf">.</span></span></span></span></span></span></span></span><span class="SemanticString"> image is processed to be a sequence of embedding vectors to enable align with paired text.</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/0bd9e8e9a4344fe0b28cf9e312f35371" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">There exist various ways to model visual concepts in images and how they’re represented is critical for V-L tasks.</span></span></li><li id="https://www.notion.so/315ea941131048aa94b01bdba4b0c9a9" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Faster R-CNN: sequence of Region of Interest features</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/2b0c6d0af5dc4cf484484d15cce51d82" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">ViLBERT, LXMERT</span></span></li></ul></li><li id="https://www.notion.so/fdf8276f2fc545e4a940990eb0ab25c2" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">ResNet: pixel-level grid features</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/b8440c7b3ea24abebc4ffd40ebf86eb6" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">pixel-BERT, SOHO</span></span></li></ul></li><li id="https://www.notion.so/c6648719362742cd85965ed0cd4fc4b6" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">ViT: a sequence of embeddings of image patches</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/be0d320d7b7d4e56b23e3ce8194b184c" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">ALBEF, SimVLM</span></span></li></ul></li></ul><h1 id="https://www.notion.so/8fd7be9c1a96411b81aa5dc4d00e7c24" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/8fd7be9c1a96411b81aa5dc4d00e7c24"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">2. interaction modeling</span></span></h1><div id="https://www.notion.so/95a587b0f3424ade81289b10f89af98d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">to aggregate information from different modalities</span></span></p></div><h2 id="https://www.notion.so/e02a597926d340cdb07b7e05c1a0020a" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/e02a597926d340cdb07b7e05c1a0020a"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">2.1 fusion encoder: two types of fusion schemes </span></span></h2><ul class="BulletedListWrapper"><li id="https://www.notion.so/1a7acdf6872749a7a5cee014cc622f59" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">single-stream </span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/f4a82af1f511431ba34eeff278284381" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">concatenate text embeddings and image features, and add some special embeddings to indicate position and modalities, and fed them into a transformer-based encoder</span></span></li><li id="https://www.notion.so/9f7da3e247f34ba98dde8ffaf7319c7e" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">self-attention is performed directly on two modalities</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/34e06c41751740d3b35ae273f6c26232" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">assume that potential correlation and alignment can be learned by a single transformer encoder.</span></span></li></ul></li><li id="https://www.notion.so/25fcae0f7bda43c9a0f800d63223f87c" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">VisualBERT, V-L BERT, OSCAR adds object tags detected from image to form a &lt;word, tag, image&gt; triple for a image-text pair.</span></span></li><li id="https://www.notion.so/a946417eba4f45acb8c7814b0b45e9b1" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">intra-modality interaction may be neglected.</span></span></li></ul></li><li id="https://www.notion.so/b4e147d45d8d45b3857e1a31e9c0f735" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">dual-stream</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/3edaf3e56959470e824e73e863b65b8d" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">cross-attention is performed, where query are from one modality while key and values are from another</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/9701bc1819324bc7b2f7e8aba98633c7" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">assume intra-modal interaction and cross-modal interaction need to be separated modeled</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/9736eeefbbbe4ce383a4d3600b3f0962" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">ViLBERT, LXMERT, ALBEF employs two separate transformers before cross-attention for images and texts.</span></span></li></ul></li></ul></li></ul></li><li id="https://www.notion.so/551452c73c6a49c581be1f6954dd35c3" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold"><mark class="SemanticString__Fragment SemanticString__Fragment--HighlightedBg SemanticString__Fragment--BgOrange">good at visual understanding, but when came to Image-Text Retrieval, quite slow inferences speed.</mark></strong></span></span></li></ul><h2 id="https://www.notion.so/fdd0fdf43fe0477aa96b57a1755b8202" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/fdd0fdf43fe0477aa96b57a1755b8202"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">2.2 dual encoder</span></span></h2><div id="https://www.notion.so/041bba18e97d452b932ec89dba444729" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/0e88fcbca4af4114a6c173992946c57b" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">shallow attention layer or dot product for projecting image embedding and text embedding to the same semantic space for computing V-L similarity scores.</span></span></li><li id="https://www.notion.so/891273d2695a46889bd1c13aebe165b0" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">enable pre-compute and store feature vectors of images and texts</span></span></li><li id="https://www.notion.so/f899f469557b49b7af51e3aa0e117b34" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">CLIP </span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/1813f3528c334d3a8b57a75efa567bcc" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold"><mark class="SemanticString__Fragment SemanticString__Fragment--HighlightedBg SemanticString__Fragment--BgOrange">perform good on multimodal retrieval but fail on NLVR.</mark></strong></span></span></li></ul></li></ul><h2 id="https://www.notion.so/56b662bb5f394d66a79719585d661a7a" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/56b662bb5f394d66a79719585d661a7a"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">2.3 combination of fusion encoder and dual encoder</span></span></h2><div id="https://www.notion.so/7bf6e482f2dc48c7b5d415e34131a536" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h1 id="https://www.notion.so/f5f6e745686a428ebbe919be87d9d0c5" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/f5f6e745686a428ebbe919be87d9d0c5"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">3. pre-training objectives</span></span></h1><div id="https://www.notion.so/6225802b7c084773b201718ebcd09f2b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">devise effective pre-training tasks</span></span></p></div><div id="https://www.notion.so/8270e611dcae4105980227054e7288b5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h1 id="https://www.notion.so/1317acdc844f4f1fb1ac60f809ad011a" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/1317acdc844f4f1fb1ac60f809ad011a"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">4. downstream tasks</span></span></h1><div id="https://www.notion.so/6769ed5466934b6ba3bbf9a59116ee50" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">fine-tuning on various downstream tasks</span></span></p></div></article>
+  <footer class="Footer">
+  <div>&copy; Paper Reading 2023</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>
