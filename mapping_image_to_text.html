@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📖&lt;/text&gt;&lt;/svg&gt;">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Linearly mapping from image to text space&nbsp;|&nbsp;Paper Reading</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Linearly mapping from image to text space">
+  
+  
+    <meta property="og:image" content="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📝&lt;/text&gt;&lt;/svg&gt;">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📖&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+      
+      <span>Home</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🏖️&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>About</span>
+        </div>
+      </a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</nav>
+  <header class="Header">
+    
+    <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📝&lt;/text&gt;&lt;/svg&gt;"></span>
+      </div>
+    
+    <h1 class="Header__Title">Linearly mapping from image to text space</h1>
+    
+      <div class="DateTagBar">
+        
+          <span class="DateTagBar__Item DateTagBar__Date">Posted on Mon, Nov 13, 2023</span>
+        
+        
+          <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--pink">
+            <a href="tag/linear probing.html">linear probing</a>
+          </span>
+        
+      </div>
+    
+  </header>
+  <article id="https://www.notion.so/9e2a3b91a867444c84159fa4abcbe014" class="PageRoot PageRoot--FullWidth"><h1 id="https://www.notion.so/997585a5a5ac44f288824f0f9d0eb377" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/997585a5a5ac44f288824f0f9d0eb377"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Takeaway</span></span></h1><div id="https://www.notion.so/a02d3a0894074c28b7ecaf2f66205351" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">this paper showed that image representation can be transferred as continuous prompts to frozen LMs by training only a single linear projection.</span></span></p></div><div id="https://www.notion.so/1f8feafad6ad4c6d9724a5247d61225d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">comparable performance can be achieved on captioning and VQA, showing that LMs structurally encode conceptual information similarly to vision-based models</span></span></p></div><h1 id="https://www.notion.so/24f6bce061dc4fa9ab5c6ad2ee236fd8" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/24f6bce061dc4fa9ab5c6ad2ee236fd8"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">What I’m thinking</span></span></h1><div id="https://www.notion.so/bda2973bf8ef4a99b4178dbafb6ee073" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">通常而言，对于一些人类通过与物理世界交互而得到的 rich conceptual knowledge，如果没有explicit grounding，LMs 不会学习到。</span></span></p></div><div id="https://www.notion.so/a3f9f332481d4135a3a1aa379677e0d2" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">本篇文章发现：language models 和 vision models 学到的conceptual spaces 在结构上是相似的，但是相似度的精确程度却取决于image encoder接受的 type of supervision。</span></span></p></div><h1 id="https://www.notion.so/bf850534927d4688817a5596f78090c3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/bf850534927d4688817a5596f78090c3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">1. Background &amp;&amp; Research Problems</span></span></h1><div id="https://www.notion.so/eaf6798f881343829cd43481340f2bf5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">LMs can generalize to and reason about non-linguistic phenomena.</span></span></p></div><h3 id="https://www.notion.so/d25cefb2bf7f4ad2a5ad907c1c9149b0" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/d25cefb2bf7f4ad2a5ad907c1c9149b0"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">related work:</span></span></h3><div id="https://www.notion.so/58088d054bd14d04bf78638960bb5fa1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">visual inputs → VLs → described in text as text prompts →  LMs</span></span></p></div><div id="https://www.notion.so/54ec8e0044c94cc5a62eaa115f1287bc" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">model “stitching” :  two different models are attached at a certain layer.</span></span></p></div><h3 id="https://www.notion.so/a74242b64dde45e9af57c2986d13ef1f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/a74242b64dde45e9af57c2986d13ef1f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">research problems:</span></span></h3><div id="https://www.notion.so/f28fb123b7eb4a2eac996cf9aa89594f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">to what extent (if at all) a language model trained on text-only data can learn aspects of the physical world. </span></span></p></div><div id="https://www.notion.so/57b0b8451c2f4fcd9007a7704d0f8843" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">if conceptual representation spaces from two modalities are structured similarly.</span></span></p></div><h1 id="https://www.notion.so/3d1a38c1881b4d1e9a907e279904a77e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/3d1a38c1881b4d1e9a907e279904a77e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">2. Method</span></span></h1><div id="https://www.notion.so/ca6aaefb9b1240a2a5b55678ebcfe09e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">linearly transform an image representation into “soft prompts” — vectors in embedding space that don’t correspond to discrete language tokens.</span></span></p></div><div id="https://www.notion.so/7d50c733be534c99b87be974baefbdd4" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">(train a single</span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic"><span class="SemanticString__Fragment SemanticString__Fragment--Unknown"> linear layer </span></em></span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic"><span class="SemanticString__Fragment SemanticString__Fragment--Unknown"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">P</strong></span></em></span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic"><span class="SemanticString__Fragment SemanticString__Fragment--Unknown"> to project</span></em></span><span class="SemanticString"> from the hidden size </span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic">h_I </em></span><span class="SemanticString">of a pretrained image encoder</span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic"> into</em></span><span class="SemanticString"> the input space</span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic"> e_L</em></span><span class="SemanticString"> of a generative language model</span><span class="SemanticString"><em class="SemanticString__Fragment SemanticString__Fragment--Italic"> for an image captioning task.</em></span></span></p></div><div id="https://www.notion.so/54f1b92b4a1c4347bbb1c60c18af5acf" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">weights of linear projection are tuned for image captioning.</span></span></p></div><div id="https://www.notion.so/b8c91ba0168e458ab565345163a00895" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F2f766b29-2ea4-4bd3-b5a4-e00aa9e137a5%2F612bfe27-ff82-4c54-bdb6-04e4a882940e%2FUntitled.png?width=2218&amp;table=block&amp;id=b8c91ba0-168e-458a-b565-345163a00895"><img src="https://www.notion.so/signed/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F2f766b29-2ea4-4bd3-b5a4-e00aa9e137a5%2F612bfe27-ff82-4c54-bdb6-04e4a882940e%2FUntitled.png?width=2218&amp;table=block&amp;id=b8c91ba0-168e-458a-b565-345163a00895" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/6586ebd2311f4e459be7e78fa4434739" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">by using three vision encoders with different levels of linguistic supervision to train diff projections.</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/e45877617e524e49ac9bf454b76f8c06" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">BEIT</span></span></li><li id="https://www.notion.so/631698fed5604e41b412cc664c058074" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Normalizer Free Resnet50</span></span></li><li id="https://www.notion.so/0216c71bfa97489db4ea39da16063ace" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">CLIP</span></span></li></ul></li></ul><h1 id="https://www.notion.so/e1af214e3fa44a8c929d54cb6d484ddc" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/e1af214e3fa44a8c929d54cb6d484ddc"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">3. Experiments</span></span></h1><div id="https://www.notion.so/a78b9624292a407ba0a39f15067ae0ff" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/e6ff906f61bd4736a3727aa2801e62f1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h1 id="https://www.notion.so/2e1824526d3b468f9d1917bf8e263d59" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/2e1824526d3b468f9d1917bf8e263d59"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">4. Discussion &amp;&amp; Limitation</span></span></h1></article>
+  <footer class="Footer">
+  <div>&copy; Paper Reading 2023</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>
